@@ -1765,7 +1765,7 @@ input, select, textarea {
 	}
 
 	header p {
-		color: #b2b2b2;
+		color: #000000;
 		position: relative;
 		margin: 0 0 1.5em 0;
 	}
@@ -1958,22 +1958,22 @@ input, select, textarea {
 	}
 
 	::-webkit-input-placeholder {
-		color: #b2b2b2 !important;
+		color: #000000 !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: #b2b2b2 !important;
+		color: #000000 !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: #b2b2b2 !important;
+		color: #000000 !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: #b2b2b2 !important;
+		color: #000000 !important;
 		opacity: 1.0;
 	}
 
@@ -2231,7 +2231,7 @@ input, select, textarea {
 			}
 
 			ul.labeled-icons li h3 {
-				color: #b2b2b2;
+				color: #000000;
 				left: 0;
 				position: absolute;
 				text-align: center;
@@ -2547,7 +2547,7 @@ input, select, textarea {
 		.button:disabled {
 			background-color: #e7e7e7 !important;
 			border-color: #e7e7e7 !important;
-			color: #b2b2b2 !important;
+			color: #000000 !important;
 			cursor: default;
 		}
 
