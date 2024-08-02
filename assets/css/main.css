@@ -102,7 +102,7 @@ input, select, textarea {
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 16pt;
 		font-weight: 400;
-		line-height: 1.75em;
+		line-height: 1em;
 	}
 
 	a {
@@ -224,7 +224,7 @@ input, select, textarea {
 
 		pre code {
 			display: block;
-			line-height: 1.75em;
+			line-height: 1em;
 			padding: 1em 1.5em;
 			overflow-x: auto;
 		}
@@ -2216,7 +2216,7 @@ input, select, textarea {
 	}
 
 		ul.labeled-icons li {
-			line-height: 1.75em;
+			line-height: 1em;
 			margin: 1.5em 0 0 0;
 			padding-left: 2.25em;
 			position: relative;
@@ -2634,7 +2634,7 @@ input, select, textarea {
 		#header h1 {
 			color: rgba(255, 255, 255, 0.5);
 			font-size: 1.35em;
-			line-height: 1.75em;
+			line-height: 1em;
 			margin: 0;
 		}
 
@@ -2930,13 +2930,13 @@ input, select, textarea {
 				content: '\f00d';
 				display: block;
 				font-size: 1em;
-				height: 1.75em;
+				height: 1em;
 				left: 50%;
-				line-height: 1.75em;
+				line-height: 1em;
 				margin: -0.875em 0 0 -0.875em;
 				position: absolute;
 				top: 50%;
-				width: 1.75em;
+				width: 1em;
 			}
 
 		.poptrox-popup:hover .nav-next,
@@ -3066,7 +3066,7 @@ input, select, textarea {
 			}
 
 				#header h1 {
-					font-size: 1.75em;
+					font-size: 1em;
 				}
 
 					#header h1 br {
@@ -3151,7 +3151,7 @@ input, select, textarea {
 			}
 
 				ul.labeled-icons li h3 {
-					line-height: 1.75em;
+					line-height: 1em;
 				}
 
 		/* Header */
