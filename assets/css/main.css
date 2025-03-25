@@ -3219,19 +3219,3 @@ input, select, textarea {
 			}
 
 	}
-nav {
-    text-align: center;
-    padding: 10px;
-}
-
-nav a {
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 15px;
-    color: #333; /* Adjust color as needed */
-}
-
-nav a:hover {
-    color: #007bff; /* Change color on hover */
-}
