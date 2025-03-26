@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+#Hey good job. But it wont be that easy :) But Ill point you in the right direction ---> I decided to hide the flag in a pretty good source of mine.
