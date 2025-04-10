@@ -119,99 +119,108 @@
 
     <script>
        
-        const words = [
-            "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
-            "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
-            "quince", "raspberry", "strawberry", "tangerine", "watermelon", "avocado", "blueberry", 
-            "cantaloupe", "dragonfruit", "elderberry", "fennel", "grapefruit", "jackfruit", 
-            "kiwifruit", "lime", "melon", "nectar", "olive", "papaya", "quinoa", "redberry", 
-            "spinach", "tomato", "zucchini", "artichoke", "beetroot", "carrot", "cucumber", 
-            "lettuce", "mushroom", "onion", "peanut", "potato", "pumpkin", "radish", "rhubarb", 
-            "soybean", "turnip", "asparagus", "bamboo", "broccoli", "brusselsprout", "cabbage", 
-            "cauliflower", "chili", "chives", "cilantro", "coriander", "cress", "dandelion", 
-            "dill", "endive", "fennel", "garlic", "ginger", "jalapeno", "kale", "lemongrass", 
-            "marjoram", "mint", "oregano", "parsley", "rosemary", "sage", "savory", "thyme", 
-            "turmeric", "vanilla", "wasabi", "wheatgrass", "basil", "bayleaf", "cardamom", 
-            "clove", "cinnamon", "cumin", "nutmeg", "paprika", "saffron", "turmeric", "garammasala",
-            "cayenne", "paprika", "salt", "pepper", "sugar", "allspice", "anise", "tarragon",
-            "mustard", "sugarcane", "hops", "sesame", "cocoa", "almond", "peanut", "walnut",
-            "cashew", "pistachio", "hazelnut", "macadamia", "pecan", "pine", "acorn", "chestnut"
-        ];
+       const words = [
+    "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
+    "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
+    "quince", "raspberry", "strawberry", "tangerine", "watermelon", "avocado", "blueberry", 
+    "cantaloupe", "dragonfruit", "elderberry", "fennel", "grapefruit", "jackfruit", 
+    "kiwifruit", "lime", "melon", "nectar", "olive", "papaya", "quinoa", "redberry", 
+    "spinach", "tomato", "zucchini", "artichoke", "beetroot", "carrot", "cucumber", 
+    "lettuce", "mushroom", "onion", "peanut", "potato", "pumpkin", "radish", "rhubarb", 
+    "soybean", "turnip", "asparagus", "bamboo", "broccoli", "brusselsprout", "cabbage", 
+    "cauliflower", "chili", "chives", "cilantro", "coriander", "cress", "dandelion", 
+    "dill", "endive", "fennel", "garlic", "ginger", "jalapeno", "kale", "lemongrass", 
+    "marjoram", "mint", "oregano", "parsley", "rosemary", "sage", "savory", "thyme", 
+    "turmeric", "vanilla", "wasabi", "wheatgrass", "basil", "bayleaf", "cardamom", 
+    "clove", "cinnamon", "cumin", "nutmeg", "paprika", "saffron", "turmeric", "garammasala",
+    "cayenne", "paprika", "salt", "pepper", "sugar", "allspice", "anise", "tarragon",
+    "mustard", "sugarcane", "hops", "sesame", "cocoa", "almond", "peanut", "walnut",
+    "cashew", "pistachio", "hazelnut", "macadamia", "pecan", "pine", "acorn", "chestnut"
+];
 
-      
-        const randomWord = words[Math.floor(Math.random() * words.length)];
-        const randomNumber = Math.floor(Math.random() * 100) + 1;
-        let timeLeft = 10; 
-        let timerInterval;
-        let wordGuessed = false;
-        let numberGuessed = false;
+let randomWord, randomNumber;
+let timeLeft = 10; 
+let timerInterval;
+let wordGuessed = false;
+let numberGuessed = false;
 
-     
-        let correctMessage = "";
-        async function fetchMessage() {
-            try {
-                const response = await fetch("message.txt?nocache=" + new Date().getTime());
-                const data = await response.text();
-                correctMessage = data.trim();
-            } catch (error) {
-                console.error("Error fetching message.txt:", error);
-            }
+let correctMessage = "";
+
+// Function to generate a new word and number
+function generateNewWordAndNumber() {
+    randomWord = words[Math.floor(Math.random() * words.length)];
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+    console.log("The word to guess is: " + randomWord);
+    console.log("The number to guess is: " + randomNumber);
+}
+
+// Function to start/restart the timer
+function startTimer() {
+    timeLeft = 10;
+    document.getElementById("timer").innerHTML = `Time remaining: ${timeLeft}s`;
+    timerInterval = setInterval(function() {
+        timeLeft--;
+        document.getElementById("timer").innerHTML = `Time remaining: ${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
+            document.getElementById("userInput").disabled = true;
+            setTimeout(function() {
+                // Reset the game after timeout, restart the timer, and generate new word/number
+                generateNewWordAndNumber();
+                startTimer();
+                document.getElementById("userInput").disabled = false;
+                document.getElementById("resultMessage").innerHTML = "";
+                document.getElementById("userInput").value = "";
+            }, 3000); // Wait 3 seconds before restarting the game
         }
+    }, 1000);
+}
 
-     
-        function startTimer() {
-            timerInterval = setInterval(function() {
-                timeLeft--;
-                document.getElementById("timer").innerHTML = `Time remaining: ${timeLeft}s`;
+function checkWordGuess() {
+    const userInput = document.getElementById("userInput").value.trim().toLowerCase();
+    if (userInput === randomWord) {
+        wordGuessed = true;
+        document.getElementById("resultMessage").innerHTML = "Correct word! Now enter the number.";
+        document.getElementById("userInput").value = ""; 
+        document.querySelector("button").textContent = "Submit Number"; 
+        document.querySelector("button").onclick = checkNumberGuess; 
+    } else {
+        document.getElementById("resultMessage").innerHTML = "Incorrect word! Try again.";
+    }
+}
 
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
-                    document.getElementById("userInput").disabled = true; 
-                }
-            }, 1000);
+function checkNumberGuess() {
+    const userInput = document.getElementById("userInput").value.trim();
+    if (userInput === randomNumber.toString()) {
+        numberGuessed = true;
+        clearInterval(timerInterval); 
+        if (correctMessage) {
+            document.getElementById("resultMessage").innerHTML = correctMessage;
         }
+    } else {
+        document.getElementById("resultMessage").innerHTML = "Incorrect number! Try again.";
+    }
+}
 
-       
-        function checkWordGuess() {
-            const userInput = document.getElementById("userInput").value.trim().toLowerCase();
-            if (userInput === randomWord) {
-                wordGuessed = true;
-                document.getElementById("resultMessage").innerHTML = "Correct word! Now enter the number.";
-                document.getElementById("userInput").value = ""; 
-                document.querySelector("button").textContent = "Submit Number"; 
-                document.querySelector("button").onclick = checkNumberGuess; 
-            } else {
-                document.getElementById("resultMessage").innerHTML = "Incorrect word! Try again.";
-            }
-        }
+async function fetchMessage() {
+    try {
+        const response = await fetch("message.txt?nocache=" + new Date().getTime());
+        const data = await response.text();
+        correctMessage = data.trim();
+    } catch (error) {
+        console.error("Error fetching message.txt:", error);
+    }
+}
 
-  
-        function checkNumberGuess() {
-            const userInput = document.getElementById("userInput").value.trim();
-            if (userInput === randomNumber.toString()) {
-                numberGuessed = true;
-                clearInterval(timerInterval); 
-                if (correctMessage) {
-                    document.getElementById("resultMessage").innerHTML = correctMessage;
-                }
-            } else {
-                document.getElementById("resultMessage").innerHTML = "Incorrect number! Try again.";
-            }
-        }
+async function initializePage() {
+    await fetchMessage();  
+    generateNewWordAndNumber(); // Generate a new word and number
+    startTimer(); // Start the timer
+}
 
-    
-        async function initializePage() {
-            await fetchMessage();  
-            startTimer();       
-        }
-
-       
-        initializePage();
-    </script>
-
-</body>
-</html>
+initializePage();
 
 
 
