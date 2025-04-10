@@ -200,7 +200,6 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
             document.getElementById("userInput").disabled = true;
             setTimeout(function() {
                 // Reset the game after timeout, restart the timer, and generate new word/number
