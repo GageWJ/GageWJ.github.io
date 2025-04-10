@@ -81,116 +81,87 @@
                   
 
 
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Guessing Challenge</title>
+    <title>Word Challenge</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
-        }
-        #timer {
-            font-size: 24px;
-            color: red;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 20px;
-            color: green;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Word Guessing Challenge</h1>
-    <p id="timer"></p>
+<h2>Word Challenge</h2>
+<p>Guess the word and the number!</p>
+<p>Use the console to find the correct word, then find the correct number.</p>
 
-    <p>Guess the word!</p>
-    <input type="text" id="userInput" placeholder="Enter the word here">
-    <button onclick="checkGuess()">Submit</button>
+<!-- Form to take user input -->
+<form id="wordForm">
+    <input type="text" id="userInput" placeholder="Enter word..." required>
+    <button type="submit">Submit</button>
+</form>
 
-    <div class="message" id="resultMessage"></div>
+<p id="feedback"></p>
 
-    <script>
-  
-        const words = [
-            "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
-            "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
-            "quince", "raspberry", "strawberry", "tangerine", "watermelon", "avocado", "blueberry", 
-            "cantaloupe", "dragonfruit", "elderberry", "fennel", "grapefruit", "jackfruit", 
-            "kiwifruit", "lime", "melon", "nectar", "olive", "papaya", "quinoa", "redberry", 
-            "spinach", "tomato", "zucchini", "artichoke", "beetroot", "carrot", "cucumber", 
-            "lettuce", "mushroom", "onion", "peanut", "potato", "pumpkin", "radish", "rhubarb", 
-            "soybean", "turnip", "asparagus", "bamboo", "broccoli", "brusselsprout", "cabbage", 
-            "cauliflower", "chili", "chives", "cilantro", "coriander", "cress", "dandelion", 
-            "dill", "endive", "fennel", "garlic", "ginger", "jalapeno", "kale", "lemongrass", 
-            "marjoram", "mint", "oregano", "parsley", "rosemary", "sage", "savory", "thyme", 
-            "turmeric", "vanilla", "wasabi", "wheatgrass", "basil", "bayleaf", "cardamom", 
-            "clove", "cinnamon", "cumin", "nutmeg", "paprika", "saffron", "turmeric", "garammasala",
-            "cayenne", "paprika", "salt", "pepper", "sugar", "allspice", "anise", "tarragon",
-            "mustard", "sugarcane", "hops", "sesame", "cocoa", "almond", "peanut", "walnut",
-            "cashew", "pistachio", "hazelnut", "macadamia", "pecan", "pine", "acorn", "chestnut"
-        ];
+<script>
+    // List of words
+    const wordList = [
+        "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew",
+        "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry",
+        "strawberry", "tangerine", "ugli", "vanilla", "watermelon", "xigua", "yellowfruit",
+        "zucchini"
+    ];
 
+    // Store the word and random number separately
+    let correctWord;
+    let correctNumber;
+
+    // Function to pick a random word and generate a random number
+    function generateWordAndNumber() {
+        correctWord = wordList[Math.floor(Math.random() * wordList.length)];
+        correctNumber = Math.floor(Math.random() * 1000) + 1;  // Random number between 1 and 1000
+        console.log("Correct word (use this to find the word):", correctWord); // Debugging output
+    }
+
+    // Run the function to generate the word and number
+    generateWordAndNumber();
+
+    // Handle form submission for guessing the word and number
+    document.getElementById("wordForm").addEventListener("submit", function(event) {
+        event.preventDefault();
         
-        const randomWord = words[Math.floor(Math.random() * words.length)];
-        let timeLeft = 10;
-        let timerInterval;
+        const userInput = document.getElementById("userInput").value.trim();
 
-    
-        let correctMessage = "";
-        async function fetchMessage() {
-            try {
-                const response = await fetch("message.txt?nocache=" + new Date().getTime());
-                const data = await response.text();
-                correctMessage = data.trim();
-            } catch (error) {
-                console.error("Error fetching message.txt:", error);
-            }
+        // Step 1: User must guess the correct word
+        if (userInput === correctWord) {
+            document.getElementById("feedback").innerHTML = "Correct word! Now find the number!";
+            // Here you can make the number known after they guess the word
+            // Let the user know how to proceed with the number
+            console.log("Correct word guessed. Now find the number between 1 and 1000.");
+        } else {
+            document.getElementById("feedback").innerHTML = "Incorrect word. Try again!";
         }
 
-
-        function startTimer() {
-            timerInterval = setInterval(function() {
-                timeLeft--;
-                document.getElementById("timer").innerHTML = `Time remaining: ${timeLeft}s`;
-
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval); 
-                    document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
-                    document.getElementById("userInput").disabled = true; 
-                }
-            }, 1000);
+        // Step 2: User must guess the number
+        if (userInput === correctWord + correctNumber) {
+            fetch("message.txt?nocache=" + new Date().getTime())
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("feedback").innerHTML = data;
+                });
         }
 
-     
-        function checkGuess() {
-            const userInput = document.getElementById("userInput").value.trim().toLowerCase();
-            if (userInput === randomWord) {
-                clearInterval(timerInterval);
-                if (correctMessage) {
-                    document.getElementById("resultMessage").innerHTML = correctMessage;
-                }
-            } else {
-                document.getElementById("resultMessage").innerHTML = "Incorrect! Try again.";
-            }
-        }
-
-       
-        async function initializePage() {
-            await fetchMessage();  
-            startTimer();        
-        }
-
-        
-        initializePage();
-
-    </script>
+        // Clear the input field after submission
+        document.getElementById("userInput").value = "";
+    });
+</script>
 
 </body>
 </html>
+
 
