@@ -81,7 +81,7 @@
                   
 
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,8 +97,7 @@
 <body>
 
 <h2>Word Challenge</h2>
-<p>Guess the word and the number!</p>
-<p>Use the console to find the correct word, then find the correct number.</p>
+<p>Guess the word and the number! The word is hidden. Use the console to interact with the page and gather clues.</p>
 
 <!-- Form to take user input -->
 <form id="wordForm">
@@ -125,7 +124,8 @@
     function generateWordAndNumber() {
         correctWord = wordList[Math.floor(Math.random() * wordList.length)];
         correctNumber = Math.floor(Math.random() * 1000) + 1;  // Random number between 1 and 1000
-        console.log("Correct word (use this to find the word):", correctWord); // Debugging output
+        console.log("Clue: The word has " + correctWord.length + " letters.");  // Clue to help user
+        console.log("Clue: Try using the console to help figure out the word and number.");
     }
 
     // Run the function to generate the word and number
@@ -140,8 +140,7 @@
         // Step 1: User must guess the correct word
         if (userInput === correctWord) {
             document.getElementById("feedback").innerHTML = "Correct word! Now find the number!";
-            // Here you can make the number known after they guess the word
-            // Let the user know how to proceed with the number
+            // Inform user they got the word right, but still need the number
             console.log("Correct word guessed. Now find the number between 1 and 1000.");
         } else {
             document.getElementById("feedback").innerHTML = "Incorrect word. Try again!";
