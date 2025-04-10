@@ -126,7 +126,7 @@
       const input = document.getElementById("wordInput").value.trim().toLowerCase();
 
       if (input === selectedWord) {
-        const response = await fetch("message.txt");
+        const response = await fetch("message.txt?nocache=" + new Date().getTime());
         const message = await response.text();
         document.getElementById("result").textContent = message;
       } else {
