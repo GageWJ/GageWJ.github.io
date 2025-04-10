@@ -116,7 +116,7 @@
     <div class="message" id="resultMessage"></div>
 
     <script>
-    
+  
         const words = [
             "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
             "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
@@ -136,12 +136,24 @@
             "cashew", "pistachio", "hazelnut", "macadamia", "pecan", "pine", "acorn", "chestnut"
         ];
 
-      
+        
         const randomWord = words[Math.floor(Math.random() * words.length)];
         let timeLeft = 10;
         let timerInterval;
 
-     
+    
+        let correctMessage = "";
+        async function fetchMessage() {
+            try {
+                const response = await fetch("message.txt?nocache=" + new Date().getTime());
+                const data = await response.text();
+                correctMessage = data.trim();
+            } catch (error) {
+                console.error("Error fetching message.txt:", error);
+            }
+        }
+
+
         function startTimer() {
             timerInterval = setInterval(function() {
                 timeLeft--;
@@ -160,17 +172,25 @@
             const userInput = document.getElementById("userInput").value.trim().toLowerCase();
             if (userInput === randomWord) {
                 clearInterval(timerInterval);
-                document.getElementById("resultMessage").innerHTML = "Correct! You guessed the word!";
+                if (correctMessage) {
+                    document.getElementById("resultMessage").innerHTML = correctMessage;
+                }
             } else {
                 document.getElementById("resultMessage").innerHTML = "Incorrect! Try again.";
             }
         }
 
        
-        startTimer();
+        async function initializePage() {
+            await fetchMessage();  
+            startTimer();        
+        }
+
+        
+        initializePage();
+
     </script>
 
 </body>
 </html>
-
 
