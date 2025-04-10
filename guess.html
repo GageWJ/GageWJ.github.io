@@ -88,38 +88,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Guessing Challenge</title>
+    <title>Word and Number Guessing Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding-top: 50px;
+            width: 300px;
         }
+
         #timer {
-            font-size: 24px;
-            color: red;
+            font-size: 18px;
+            color: #d9534f;
         }
-        .message {
-            margin-top: 20px;
-            font-size: 20px;
-            color: green;
+
+        #resultMessage {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #5bc0de;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 80%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #6c757d;
         }
     </style>
 </head>
 <body>
 
-    <h1>Word Guessing Challenge</h1>
-    <p id="timer"></p>
+<div class="game-container">
+    <h2>Guess the Word and Number</h2>
+    <p id="timer">Time remaining: 10s</p>
+    <div id="wordMessage">Guess the word:</div>
+    <input type="text" id="userInput" placeholder="Enter word">
+    <button id="submitButton" onclick="checkWordGuess()">Submit Word</button>
+    <p id="resultMessage"></p>
+</div>
 
-    <p>Guess the word!</p>
-    <input type="text" id="userInput" placeholder="Enter the word here">
-    <button onclick="checkWordGuess()">Submit Word</button>
-
-    <div class="message" id="resultMessage"></div>
-
-    <script>
-       
-       const words = [
+<script>
+const words = [
     "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
     "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
     "quince", "raspberry", "strawberry", "tangerine", "watermelon", "avocado", "blueberry", 
@@ -221,7 +257,10 @@ async function initializePage() {
 }
 
 initializePage();
+</script>
 
+</body>
+</html>
 
 
 
