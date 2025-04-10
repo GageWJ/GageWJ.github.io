@@ -80,60 +80,97 @@
 
                   
 
+
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Word Guess Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Guessing Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #timer {
+            font-size: 24px;
+            color: red;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
 </head>
 <body>
-  <h1>Guess the Word</h1>
-  <form id="guessForm">
-    <input type="text" id="wordInput" placeholder="Enter your guess" required>
-    <button type="submit">Check</button>
-  </form>
-  <p id="result"></p>
 
-  <script>
-    const words = [
-  "nebula", "galaxy", "quantum", "cipher", "puzzle", "riddle", "storm", "forest",
-  "dragon", "phoenix", "enigma", "shadow", "oracle", "eclipse", "fragment", "echo",
-  "whisper", "signal", "matrix", "binary", "glitch", "firewall", "byte", "packet",
-  "daemon", "hacker", "trojan", "crystal", "ember", "flame", "tornado", "volcano",
-  "avalanche", "breeze", "mist", "tidal", "prism", "specter", "raven", "owl",
-  "falcon", "griffin", "wizard", "mage", "sorcerer", "spell", "charm", "curse",
-  "cloak", "dagger", "stealth", "agent", "decode", "ciphertext", "syntax", "root",
-  "kernel", "logic", "hex", "ascii", "buffer", "stack", "overflow", "input",
-  "switch", "router", "nexus", "portal", "dimension", "wormhole", "orbit", "nova",
-  "comet", "meteor", "satellite", "blackhole", "singularity", "entropy", "atom",
-  "electron", "neutron", "quark", "plasma", "energy", "signal", "frequency",
-  "resonance", "gravity", "magnet", "pulse", "current", "spark", "neon", "voltage",
-  "circuit", "node", "grid", "quantize", "virtual", "dream", "echoes", "illusion",
-  "code", "variable", "function", "array", "loop", "compile", "execute", "logic",
-  "transmit", "receive", "terminal", "console", "command", "launch", "uplink",
-  "download", "upload", "encrypt", "decrypt", "vault", "hidden", "secret", "cloak",
-  "phantom", "ghost", "invisible", "mirror", "reflection", "maze", "labyrinth",
-  "trap", "trigger", "unlock", "keycode", "cipherlock", "firefly", "stormlight",
-  "hollow", "rift", "twilight", "dusk", "midnight", "starlight", "cometfall",
-  "arcane", "relic", "sigil", "glyph", "runes", "artifact", "scroll", "manuscript",
-  "archive", "vault", "deep", "abyss", "horizon", "spectrum", "signal", "pulsewave",
-  "yap", "words", "yippie", "yahoo", "peace", "magic", "phones", "yeet", "tv", "computer",
-  "man", "woman", "found", "cards", "box", "speaker", "nullify", "relief"
-];
-    const selectedWord = words[Math.floor(Math.random() * words.length)];
+    <h1>Word Guessing Challenge</h1>
+    <p id="timer"></p>
 
-    document.getElementById("guessForm").addEventListener("submit", async function(event) {
-      event.preventDefault();
-      const input = document.getElementById("wordInput").value.trim().toLowerCase();
+    <p>Guess the word!</p>
+    <input type="text" id="userInput" placeholder="Enter the word here">
+    <button onclick="checkGuess()">Submit</button>
 
-      if (input === selectedWord) {
-        const response = await fetch("message.txt?nocache=" + new Date().getTime());
-        const message = await response.text();
-        document.getElementById("result").textContent = message;
-      } else {
-        document.getElementById("result").textContent = "Wrong, try again.";
-      }
-    });
-  </script>
+    <div class="message" id="resultMessage"></div>
+
+    <script>
+    
+        const words = [
+            "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
+            "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
+            "quince", "raspberry", "strawberry", "tangerine", "watermelon", "avocado", "blueberry", 
+            "cantaloupe", "dragonfruit", "elderberry", "fennel", "grapefruit", "jackfruit", 
+            "kiwifruit", "lime", "melon", "nectar", "olive", "papaya", "quinoa", "redberry", 
+            "spinach", "tomato", "zucchini", "artichoke", "beetroot", "carrot", "cucumber", 
+            "lettuce", "mushroom", "onion", "peanut", "potato", "pumpkin", "radish", "rhubarb", 
+            "soybean", "turnip", "asparagus", "bamboo", "broccoli", "brusselsprout", "cabbage", 
+            "cauliflower", "chili", "chives", "cilantro", "coriander", "cress", "dandelion", 
+            "dill", "endive", "fennel", "garlic", "ginger", "jalapeno", "kale", "lemongrass", 
+            "marjoram", "mint", "oregano", "parsley", "rosemary", "sage", "savory", "thyme", 
+            "turmeric", "vanilla", "wasabi", "wheatgrass", "basil", "bayleaf", "cardamom", 
+            "clove", "cinnamon", "cumin", "nutmeg", "paprika", "saffron", "turmeric", "garammasala",
+            "cayenne", "paprika", "salt", "pepper", "sugar", "allspice", "anise", "tarragon",
+            "mustard", "sugarcane", "hops", "sesame", "cocoa", "almond", "peanut", "walnut",
+            "cashew", "pistachio", "hazelnut", "macadamia", "pecan", "pine", "acorn", "chestnut"
+        ];
+
+      
+        const randomWord = words[Math.floor(Math.random() * words.length)];
+        let timeLeft = 10:
+        let timerInterval;
+
+     
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                document.getElementById("timer").innerHTML = `Time remaining: ${timeLeft}s`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval); 
+                    document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
+                    document.getElementById("userInput").disabled = true; 
+                }
+            }, 1000);
+        }
+
+     
+        function checkGuess() {
+            const userInput = document.getElementById("userInput").value.trim().toLowerCase();
+            if (userInput === randomWord) {
+                clearInterval(timerInterval);
+                document.getElementById("resultMessage").innerHTML = "Correct! You guessed the word!";
+            } else {
+                document.getElementById("resultMessage").innerHTML = "Incorrect! Try again.";
+            }
+        }
+
+       
+        startTimer();
+    </script>
+
 </body>
 </html>
+
 
