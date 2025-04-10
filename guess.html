@@ -82,8 +82,7 @@
 
 
 
-
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -186,8 +185,6 @@ let correctMessage = "";
 function generateNewWordAndNumber() {
     randomWord = words[Math.floor(Math.random() * words.length)];
     randomNumber = Math.floor(Math.random() * 100) + 1;
-    console.log("The word to guess is: " + randomWord);
-    console.log("The number to guess is: " + randomNumber);
 }
 
 // Function to start/restart the timer
@@ -200,6 +197,7 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
+      
             document.getElementById("userInput").disabled = true;
             setTimeout(function() {
                 // Reset the game after timeout, restart the timer, and generate new word/number
@@ -260,6 +258,5 @@ initializePage();
 
 </body>
 </html>
-
 
 
