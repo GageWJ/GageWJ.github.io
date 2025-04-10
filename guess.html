@@ -94,7 +94,31 @@
   <p id="result"></p>
 
   <script>
-    const words = ["dragon", "galaxy", "nebula", "puzzle", "secret", "cipher", "storm", "forest"];
+    const words = [
+  "nebula", "galaxy", "quantum", "cipher", "puzzle", "riddle", "storm", "forest",
+  "dragon", "phoenix", "enigma", "shadow", "oracle", "eclipse", "fragment", "echo",
+  "whisper", "signal", "matrix", "binary", "glitch", "firewall", "byte", "packet",
+  "daemon", "hacker", "trojan", "crystal", "ember", "flame", "tornado", "volcano",
+  "avalanche", "breeze", "mist", "tidal", "prism", "specter", "raven", "owl",
+  "falcon", "griffin", "wizard", "mage", "sorcerer", "spell", "charm", "curse",
+  "cloak", "dagger", "stealth", "agent", "decode", "ciphertext", "syntax", "root",
+  "kernel", "logic", "hex", "ascii", "buffer", "stack", "overflow", "input",
+  "switch", "router", "nexus", "portal", "dimension", "wormhole", "orbit", "nova",
+  "comet", "meteor", "satellite", "blackhole", "singularity", "entropy", "atom",
+  "electron", "neutron", "quark", "plasma", "energy", "signal", "frequency",
+  "resonance", "gravity", "magnet", "pulse", "current", "spark", "neon", "voltage",
+  "circuit", "node", "grid", "quantize", "virtual", "dream", "echoes", "illusion",
+  "code", "variable", "function", "array", "loop", "compile", "execute", "logic",
+  "transmit", "receive", "terminal", "console", "command", "launch", "uplink",
+  "download", "upload", "encrypt", "decrypt", "vault", "hidden", "secret", "cloak",
+  "phantom", "ghost", "invisible", "mirror", "reflection", "maze", "labyrinth",
+  "trap", "trigger", "unlock", "keycode", "cipherlock", "firefly", "stormlight",
+  "hollow", "rift", "twilight", "dusk", "midnight", "starlight", "cometfall",
+  "arcane", "relic", "sigil", "glyph", "runes", "artifact", "scroll", "manuscript",
+  "archive", "vault", "deep", "abyss", "horizon", "spectrum", "signal", "pulsewave",
+  "yap", "words", "yippie", "yahoo", "peace", "magic", "phones", "yeet", "tv", "computer",
+  "man", "woman", "found", "cards", "box", "speaker", "nullify", "relief"
+];
     const selectedWord = words[Math.floor(Math.random() * words.length)];
 
     document.getElementById("guessForm").addEventListener("submit", async function(event) {
@@ -102,7 +126,6 @@
       const input = document.getElementById("wordInput").value.trim().toLowerCase();
 
       if (input === selectedWord) {
-        // ✅ Fetch external message only if guess is correct
         const response = await fetch("message.txt");
         const message = await response.text();
         document.getElementById("result").textContent = message;
