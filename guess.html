@@ -229,6 +229,7 @@ function checkNumberGuess() {
         numberGuessed = true;
         clearInterval(timerInterval); 
         document.getElementById("resultMessage").innerHTML = "You won! The correct word and number were guessed.";
+        displayMessage();  // Display the message from message.txt
     } else {
         document.getElementById("resultMessage").innerHTML = "Incorrect number! Try again.";
     }
@@ -254,6 +255,13 @@ async function fetchMessage() {
     }
 }
 
+// Display the message from message.txt when both word and number are guessed
+function displayMessage() {
+    if (correctMessage) {
+        document.getElementById("resultMessage").innerHTML = correctMessage;
+    }
+}
+
 // Initialize the game
 async function initializePage() {
     await fetchMessage();
@@ -266,6 +274,4 @@ initializePage();
 
 </body>
 </html>
-
-
 
