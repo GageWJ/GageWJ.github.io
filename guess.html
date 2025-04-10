@@ -81,8 +81,6 @@
                   
 
 
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -174,7 +172,7 @@ const words = [
 ];
 
 let randomWord, randomNumber;
-let timeLeft = 10; 
+let timeLeft = 10;
 let timerInterval;
 let wordGuessed = false;
 let numberGuessed = false;
@@ -197,7 +195,7 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-      
+            document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
             document.getElementById("userInput").disabled = true;
             setTimeout(function() {
                 // Reset the game after timeout, restart the timer, and generate new word/number
@@ -206,6 +204,7 @@ function startTimer() {
                 document.getElementById("userInput").disabled = false;
                 document.getElementById("resultMessage").innerHTML = "";
                 document.getElementById("userInput").value = "";
+                resetGame();
             }, 3000); // Wait 3 seconds before restarting the game
         }
     }, 1000);
@@ -229,14 +228,22 @@ function checkNumberGuess() {
     if (userInput === randomNumber.toString()) {
         numberGuessed = true;
         clearInterval(timerInterval); 
-        if (correctMessage) {
-            document.getElementById("resultMessage").innerHTML = correctMessage;
-        }
+        document.getElementById("resultMessage").innerHTML = "You won! The correct word and number were guessed.";
     } else {
         document.getElementById("resultMessage").innerHTML = "Incorrect number! Try again.";
     }
 }
 
+function resetGame() {
+    wordGuessed = false;
+    numberGuessed = false;
+    document.querySelector("button").textContent = "Submit Word";
+    document.querySelector("button").onclick = checkWordGuess;
+    document.getElementById("wordMessage").innerHTML = "Guess the word:";
+    document.getElementById("userInput").value = "";
+}
+
+// Fetch message from text file (if available)
 async function fetchMessage() {
     try {
         const response = await fetch("message.txt?nocache=" + new Date().getTime());
@@ -247,8 +254,9 @@ async function fetchMessage() {
     }
 }
 
+// Initialize the game
 async function initializePage() {
-    await fetchMessage();  
+    await fetchMessage();
     generateNewWordAndNumber(); // Generate a new word and number
     startTimer(); // Start the timer
 }
@@ -258,5 +266,6 @@ initializePage();
 
 </body>
 </html>
+
 
 
