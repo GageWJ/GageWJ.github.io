@@ -118,7 +118,7 @@
     <div class="message" id="resultMessage"></div>
 
     <script>
-        // Expanded list of words (over 100 words)
+       
         const words = [
             "apple", "banana", "cherry", "date", "elephant", "fig", "grape", "honeydew",
             "kiwi", "lemon", "mango", "nectarine", "orange", "peach", "pear", "plum",
@@ -138,15 +138,15 @@
             "cashew", "pistachio", "hazelnut", "macadamia", "pecan", "pine", "acorn", "chestnut"
         ];
 
-        // Pick a random word and a random number from 1-100
+      
         const randomWord = words[Math.floor(Math.random() * words.length)];
         const randomNumber = Math.floor(Math.random() * 100) + 1;
-        let timeLeft = 30; // 30 seconds timer
+        let timeLeft = 10; 
         let timerInterval;
         let wordGuessed = false;
         let numberGuessed = false;
 
-        // Fetch the message from message.txt using cache-busting technique
+     
         let correctMessage = "";
         async function fetchMessage() {
             try {
@@ -158,40 +158,40 @@
             }
         }
 
-        // Start the timer countdown
+     
         function startTimer() {
             timerInterval = setInterval(function() {
                 timeLeft--;
                 document.getElementById("timer").innerHTML = `Time remaining: ${timeLeft}s`;
 
                 if (timeLeft <= 0) {
-                    clearInterval(timerInterval); // Stop the timer
+                    clearInterval(timerInterval);
                     document.getElementById("resultMessage").innerHTML = "Out of time! Refresh to try again.";
-                    document.getElementById("userInput").disabled = true; // Disable the input field
+                    document.getElementById("userInput").disabled = true; 
                 }
             }, 1000);
         }
 
-        // Function to check the user's word guess
+       
         function checkWordGuess() {
             const userInput = document.getElementById("userInput").value.trim().toLowerCase();
             if (userInput === randomWord) {
                 wordGuessed = true;
                 document.getElementById("resultMessage").innerHTML = "Correct word! Now enter the number.";
-                document.getElementById("userInput").value = ""; // Clear input for number guess
-                document.querySelector("button").textContent = "Submit Number"; // Change button text
-                document.querySelector("button").onclick = checkNumberGuess; // Change function
+                document.getElementById("userInput").value = ""; 
+                document.querySelector("button").textContent = "Submit Number"; 
+                document.querySelector("button").onclick = checkNumberGuess; 
             } else {
                 document.getElementById("resultMessage").innerHTML = "Incorrect word! Try again.";
             }
         }
 
-        // Function to check the user's number guess
+  
         function checkNumberGuess() {
             const userInput = document.getElementById("userInput").value.trim();
             if (userInput === randomNumber.toString()) {
                 numberGuessed = true;
-                clearInterval(timerInterval); // Stop the timer when both guesses are correct
+                clearInterval(timerInterval); 
                 if (correctMessage) {
                     document.getElementById("resultMessage").innerHTML = correctMessage;
                 }
@@ -200,13 +200,13 @@
             }
         }
 
-        // Initialize the page
+    
         async function initializePage() {
-            await fetchMessage();  // Fetch the message from message.txt
-            startTimer();          // Start the timer
+            await fetchMessage();  
+            startTimer();       
         }
 
-        // Run the initialization
+       
         initializePage();
     </script>
 
