@@ -14,10 +14,10 @@
   <p id="msg"></p>
 
   <script>
-    // Function to check if it's exactly 7:13 PM
+    // Function to check if it's exactly 8:13 PM
     function isCorrectTime() {
       const now = new Date();
-      return now.getHours() === 2 && now.getMinutes() === 44;
+      return now.getHours() === 19 && now.getMinutes() === 44;
     }
 
   
@@ -41,7 +41,7 @@
       
       const msgElement = document.getElementById('msg');
       
-      // If it's 7:13 PM, try fetching the flag
+      // If it's 8:13 PM, try fetching the flag
       if (isCorrectTime()) {
         const flag = await fetchFlag();
         if (flag) {
@@ -50,7 +50,7 @@
           msgElement.textContent = 'Error fetching the flag.';
         }
       } else {
-        msgElement.textContent = 'Invalid credentials. Try again at 7:43 PM!';
+        msgElement.textContent = 'Invalid credentials.';
       }
     });
   </script>
