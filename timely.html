@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+</head>
+<body>
+  <h2>Admin Login</h2>
+  <form id="loginForm">
+    Username: <input type="text" name="user" required><br>
+    Password: <input type="password" name="pass" required><br>
+    <button type="submit">Login</button>
+  </form>
+  <p id="msg"></p>
+
+  <script>
+    // Function to check if it's exactly 7:13 PM
+    function isCorrectTime() {
+      const now = new Date();
+      return now.getHours() === 19 && now.getMinutes() === 43;
+    }
+
+  
+    async function fetchFlag() {
+      try {
+        const response = await fetch('flag.txt');
+        if (!response.ok) {
+          throw new Error('Failed to load flag');
+        }
+        const flag = await response.text();
+        return flag;
+      } catch (err) {
+        console.error('Error fetching the flag:', err);
+        return null;
+      }
+    }
+
+ 
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const msgElement = document.getElementById('msg');
+      
+      // If it's 7:13 PM, try fetching the flag
+      if (isCorrectTime()) {
+        const flag = await fetchFlag();
+        if (flag) {
+          msgElement.textContent = `Welcome admin! Flag: ${flag}`;
+        } else {
+          msgElement.textContent = 'Error fetching the flag.';
+        }
+      } else {
+        msgElement.textContent = 'Invalid credentials. Try again at 7:43 PM!';
+      }
+    });
+  </script>
+</body>
+</html>
