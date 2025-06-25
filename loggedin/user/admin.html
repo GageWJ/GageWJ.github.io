@@ -1,1 +1,91 @@
-#placeholder, but add more stuff after getting to this page to make it harder and more fun. maybe do the negativ apple shop thing
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login</ 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #388e3c;
+    }
+
+    #error-message {
+      color: #ff6f61;
+      margin-top: 1rem;
+    }
+
+    #secret-url {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #90ee90;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="checkLogin()">Login</button>
+    <div id="error-message"></div>
+    <div id="secret-url"></div>
+  </div>
+
+  <!-- Hidden Base64 credentials -->
+  <!-- Username: YWRtaW4= -->
+  <!-- Password: czNrcjN0UEB6encwcmQ0QWRtIW4hISE= -->
+
+  <script>
+    async function fetchFlag() {
+      try {
+        const response = await fetch('secreturl.txt');
+        if (!response.ok) {
+          throw new Error('Failed to load secret URL');
+        }
+        const flag = await response.text();
+        return flag.trim();
+      } catch (err) {
+        console.error('Error fetching the secret URL:', err);
+        return null;
+      }
+    }
+
+    async function checkLogin() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      const correctUser = atob("YWRtaW4=");
+      const correctPass = atob("czNrcjN0UEB6encwcmQ0QWRtIW4hISE=");
+
+      if (user === correctUser && pass === correctPass) {
+        const flag = await fetchFlag();
+        if (flag) {
+          document.getElementById("secret-url").innerText = `Access granted. Go to: ${flag}`;
+        } else {
+          document.getElementById("error-message").innerText = "Could not retrieve the secret URL.";
+        }
+      } else {
+        document.getElementById("error-message").innerText = "Invalid credentials. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
