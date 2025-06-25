@@ -1,1 +1,49 @@
-#placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Restricted Access</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff6f61, #de6262);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+    }
+
+    .message-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .message-box h1 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .message-box p {
+     keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <h1>Wow, not a lot here.</h1>
+    <p>Only admins get to see the cool stuff.</p>
+  </div>
+</body>
+</html>
+
