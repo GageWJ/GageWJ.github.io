@@ -1,1 +1,43 @@
-#placeholder, this will be a login page, when creds are put in it will say invalid admin login, click here for guest login. Then it goes to something like /loggedin/user/guest.html/. the user needs to replace the word guest with admin and it goes to th eadmin page. Get something cooler after that so theres more to it than that. maybe something they need to do one on the admin page. 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: # margin-top: 1rem;
+    }
+    #error-message {
+      color: red;
+      margin-top: 1rem;
+    }
+    #guest-login {
+      display: none;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="handleLogin()">Login</button>
+    <div id="error-message"></div>
+    <button id="guest-login" onclick="guestLogin()">Guest Login</button>
+  </div>
+
+  <script>
+    function handleLogin() {
+      document.getElementById("error-message").innerText = "Invalid login. Click Guest Login.";
+      document.getElementById("guest-login").style.display = "inline-block";
+    }
+
+    function guestLogin() {
+      window.location.href = "https://gagejohnson.dev/loggedin/user/guest";
+    }
+  </script>
+</body>
+</html>
