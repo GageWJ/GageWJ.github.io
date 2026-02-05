@@ -1,0 +1,6 @@
+
+{
+  "name": "CyberNexus Portfolio",
+  "description": "A cutting-edge cybersecurity portfolio featuring project showcases, skill tracking, and an AI-powered security assistant.",
+  "requestFramePermissions": ["camera", "microphone"]
+}
